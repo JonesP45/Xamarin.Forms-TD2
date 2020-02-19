@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<mvvm:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+                      xmlns:vm="clr-namespace:TD2.ViewModels"
+                      x:Class="TD2.Views.SignInPage"
+                      x:DataType="vm:SignInViewModel"
+                      Title="Sign in">
+
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Email:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding Email}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+                
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Password:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding Password}"
+                           IsPassword="True"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+                <Button Text="{Binding SignInText}"
+                        Margin="12, 20"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SignInCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</mvvm:BaseContentPage>

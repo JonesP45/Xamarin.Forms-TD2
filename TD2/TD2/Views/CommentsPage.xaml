@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:TD2.ViewModels"
+    xmlns:local="clr-namespace:TD2.Ressources;assembly=TD2"
+    mc:Ignorable="d"
+    x:Class="TD2.Views.CommentsPage"
+    Title="Comments"
+    x:DataType="vm:CommentsViewModel">
+    
+    <RelativeLayout
+        VerticalOptions="FillAndExpand">
+        <ListView
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            ItemsSource="{Binding Comments}"
+            SelectionMode="None"
+            HasUnevenRows="True"
+            SeparatorColor="Black"
+            Footer="">
+            <ListView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="local:CommentItem">
+                    <ViewCell>
+                        <Frame CornerRadius="4"
+                               HasShadow="True"
+                               Margin="4,4,4,4"
+                               Padding="8,4,8,4"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Start"
+                               >
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Start"
+                                         Orientation="Horizontal">
+
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center">
+                                    
+                                    <Label Text="{Binding Date}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10"
+                                    />
+                                    
+                                    <Label Text="{Binding Author}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10"
+                                    />
+                                    
+                                    <Label Text="{Binding Text}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10"
+                                    />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ImageButton
+            Source="plus.png"
+            Command="{Binding GoToFormCommentCommand}"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-80}"
+            HeightRequest="40"
+            WidthRequest="40" />
+    </RelativeLayout>
+</forms:BaseContentPage>
+
+
+
+<!--~1~ <?xml version="1.0" encoding="utf-8"?> @1@
+
+<mvvm:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+             xmlns:models="clr-namespace:TD2.Ressources;assembly=TD2"
+             xmlns:vm="clr-namespace:TD2.ViewModels"
+             x:Class="TD2.Views.CommentsPage"
+             x:DataType="vm:CommentsViewModel">
+    
+    ~1~ <ContentPage.Content> @1@
+    <StackLayout>
+        <ListView HasUnevenRows="True" SelectionMode="None" ItemsSource="{Binding Comments}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:CommentItem">
+                ~1~ <DataTemplate> @1@
+                    <ViewCell>
+                        <Frame CornerRadius="4"
+                               HasShadow="True"
+                               Margin="4,4,4,4"
+                               Padding="8,4,8,4"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Start"
+                               >
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Start"
+                                         Orientation="Horizontal">
+
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center">
+                                    
+                                    <Label Text="{Binding Date}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10"
+                                    />
+                                    
+                                    <Label Text="{Binding Author}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10"
+                                    />
+                                    
+                                    <Label Text="{Binding Text}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10"
+                                    />
+                                </StackLayout>
+                                
+                                ~1~ <Button Text="{Binding TextAddComment}" @1@
+                                ~1~         Margin="8,0,0,0" @1@
+                                ~1~         HorizontalOptions="End" @1@
+                                ~1~         VerticalOptions="Center" @1@
+                                ~1~         HeightRequest="24" @1@
+                                ~1~         WidthRequest="24" @1@
+                                ~1~         Command="{Binding GoToFormCommentCommand}" @1@
+                                ~1~         x:DataType="vm:CommentsViewModel" /> @1@
+
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    ~1~ </ContentPage.Content> @1@
+    
+        <StackLayout>
+            <Button Text="{Binding TextAddComment}"
+                    Margin="8,0,0,0"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    Command="{Binding GoToFormCommentCommand}" />
+        </StackLayout>
+    </StackLayout>
+    
+</mvvm:BaseContentPage>-->

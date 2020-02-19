@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:TD2.ViewModels"
+    xmlns:local="clr-namespace:TD2.Models"
+    mc:Ignorable="d"
+    x:Class="TD2.PlacesPage"
+    Title="Places"
+    x:DataType="vm:PlacesViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"
+                     Text="{Binding TextProfileButton}"
+                     Priority="0"
+                     Command="{Binding GoToProfileCommand}" />
+    </ContentPage.ToolbarItems>
+    <!-- Icon="Microsoft.png" -->
+    
+    <RelativeLayout
+        VerticalOptions="FillAndExpand">
+        <ListView
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            ItemsSource="{Binding Places}"
+            SelectedItem="{Binding DetailPlaceSelected, Mode=TwoWay}"
+            HasUnevenRows="True"
+            SeparatorColor="Black"
+            Footer="">
+            <ListView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="local:Place">
+                    <ViewCell>
+                        <!-- <ViewCell.ContextActions> -->
+                        <!--     <MenuItem -->
+                        <!--         Command="{Binding DeleteTodoCommand}" -->
+                        <!--         CommandParameter="{Binding .}" -->
+                        <!--         Text="Supprimer" -->
+                        <!--         IsDestructive="True" /> -->
+                        <!-- </ViewCell.ContextActions> -->
+                        <Frame CornerRadius="4"
+                            HasShadow="True"
+                            Margin="4,4,4,4"
+                            Padding="8,4,8,4"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Start"
+                            >
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Start"
+                                         Orientation="Horizontal">
+
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="Center">
+                                    <Label Text="{Binding PlaceItem.Title}"
+                                           HorizontalOptions="Center"
+                                           TextDecorations="Underline"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10" />
+                                    
+                                    <Image Source="{Binding UrlImage}" />
+                                    
+                                    <Label Text="{Binding PlaceItem.Description}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           FontSize="10" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ImageButton
+            Source="plus.png"
+            Command="{Binding GoToFormPlaceCommand}"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-80}"
+            HeightRequest="40"
+            WidthRequest="40" />
+    </RelativeLayout>
+</forms:BaseContentPage>

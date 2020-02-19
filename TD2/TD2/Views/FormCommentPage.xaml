@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<mvvm:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+             xmlns:vm="clr-namespace:TD2.ViewModels"
+             x:Class="TD2.Views.FormCommentPage"
+             x:DataType="vm:FormCommentViewModel"
+             Title="Form comment">
+    
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Text:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding TextAddComment}"
+                           Placeholder="Text"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+                <Button Text="{Binding Text}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding AddCommentCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    
+</mvvm:BaseContentPage>

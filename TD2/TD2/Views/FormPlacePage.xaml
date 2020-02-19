@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<mvvm:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:mvvm="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+                      xmlns:vm="clr-namespace:TD2.ViewModels"
+                      x:Class="TD2.Views.FormPlacePage"
+                      x:DataType="vm:FormPlaceViewModel"
+                      Title="Form place">
+
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Title:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding Title}"
+                           Placeholder="Title"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Description:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding Description}"
+                           Placeholder="Description"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="12, 20">
+                    <Label Text="Latitude:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding Latitude, Mode=TwoWay}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                <!-- </StackLayout> -->
+                <!-- -->
+                <!-- <StackLayout Orientation="Horizontal" -->
+                <!--              Margin="12, 20"> -->
+                    <Button Text="{Binding YourPositionText}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding YourPositionCommand}" />
+                <!-- </StackLayout> -->
+                <!-- -->
+                <!-- <StackLayout Orientation="Horizontal" -->
+                <!--              Margin="12, 20"> -->
+                    <Label Text="Longitude:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Entry Text="{Binding Longitude, Mode=TwoWay}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="12, 20">
+                    <Image Source="{Binding Image}"></Image>
+                       
+                    <Button Text="{Binding ChooseImageText}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding ChooseImageCommand}" />
+                </StackLayout>
+
+                <Button Text="{Binding AddPlaceText}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding AddPlaceCommand}"
+                        Margin="12, 20" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</mvvm:BaseContentPage>

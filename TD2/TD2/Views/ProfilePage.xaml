@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<forms:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+                       xmlns:vm="clr-namespace:TD2.ViewModels"
+                       x:Class="TD2.Views.ProfilePage"
+                       x:DataType="vm:ProfileViewModel"
+                       Title="Profile">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"
+                     Text="{Binding TextEditProfileButton}"
+                     Priority="0"
+                     Command="{Binding GoToEditProfileCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalOptions="FillAndExpand">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Firstname:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Label Text="{Binding Firstname}"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Lastname:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Label Text="{Binding Lastname}"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal"
+                             Margin="12, 20">
+                    <Label Text="Email:"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start" />
+
+                    <Label Text="{Binding Email}"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <Image Source="{Binding UrlImage}"
+                       Margin="12, 20" />
+
+                <Button Text="{Binding SignInText}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SignInCommand}"
+                        Margin="12, 20" />
+
+                <Label Text="{Binding SignUpText}"
+                       TextColor="Blue"
+                       TextDecorations="Underline"
+                       VerticalOptions="Center"
+                       HorizontalOptions="CenterAndExpand"
+                       Margin="12, 20">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SignUpCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</forms:BaseContentPage>
