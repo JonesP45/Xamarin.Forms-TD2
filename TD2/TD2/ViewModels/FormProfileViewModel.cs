@@ -9,9 +9,6 @@ namespace TD2.ViewModels
 {
     public class FormProfileViewModel : ViewModelBase
     {
-        // private byte[] ImageData { get; set; }
-        // private string Path { get; set; }
-        // private string APpath { get; set; }
         private string Id { get; set; }
         
         private string _image;
@@ -57,9 +54,20 @@ namespace TD2.ViewModels
             Image = GetNavigationParameter<string>("UrlImage");
         }
 
-        private void Edit()
+        private async void Edit()
         {
-            ApiService.EditProfile(Firstname, Lastname, Convert.ToInt32(Id));
+            if (Id != null && Convert.ToInt32(Id) != 0)
+            {
+                ApiService.EditProfile(Firstname, Lastname, Convert.ToInt32(Id));
+            }
+            else
+            {
+                var answer = await AlertService.ConfirmationAction();
+                if (answer)
+                {
+                    ApiService.EditProfile(Firstname, Lastname, 1);
+                }
+            }
         }
 
         private async void SetImage()

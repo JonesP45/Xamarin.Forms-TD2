@@ -18,7 +18,7 @@ namespace TD2.Models
             try
             {
                 var apiClient = new ApiClient();
-                return await apiClient.Execute(method, url, data, UserService.GetAccessToken());
+                return await apiClient.Execute(method, url, data, await UserService.GetAccessToken());
             }
             catch (Exception)
             {
@@ -28,18 +28,20 @@ namespace TD2.Models
             
         }
         
-        public static async void RefreshAccessToken()
+        public static async Task<object> RefreshAccessToken()
         {
             var apiClient = new ApiClient();
             var method = HttpMethod.Post;
             const string url = Urls.URI + Urls.REFRESH;
             var body = new RefreshRequest {RefreshToken = UserService.LoginResult.RefreshToken};
-            var response = await apiClient.Execute(method, url, body);
+            // var response = await apiClient.Execute(method, url, body);
+            var response = await GetResponse(method, url, body);
             if (response.IsSuccessStatusCode)
             {
                 var result = await apiClient.ReadFromResponse<Response<LoginResult>>(response);
                 UserService.Connexion(result.Data);
             }
+            return null;
         }
         
         public static async void GetPlaces()
@@ -131,8 +133,8 @@ namespace TD2.Models
             var method = HttpMethod.Post;
             const string url = Urls.URI + Urls.LOGIN;
             var body = new LoginRequest {Email = email, Password = password};
-            var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
-            // var response = await GetResponse(method, url, body);
+            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, body);
             if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
@@ -182,7 +184,7 @@ namespace TD2.Models
             var method = HttpMethod.Post;
             const string url = Urls.URI + Urls.CREATE_IMAGE;
             var request = new HttpRequestMessage(method, url);
-            var token = UserService.GetAccessToken();
+            var token = await UserService.GetAccessToken();
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var requestContent = new MultipartFormDataContent();
