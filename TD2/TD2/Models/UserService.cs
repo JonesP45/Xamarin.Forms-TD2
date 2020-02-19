@@ -1,27 +1,12 @@
 ﻿using System;
-using System.Net.Http;
 using TD2.Ressources;
 
 namespace TD2.Models
 {
     public static class UserService
     {
-        private static LoginResult LoginResult { get; set; }
+        public static LoginResult LoginResult { get; private set; }
         private static DateTime DateTimeSignIn { get; set; }
-
-        private static async void RefreshAccessToken()
-        {
-            var apiClient = new ApiClient();
-            var method = HttpMethod.Post;
-            const string url = Urls.URI + Urls.REFRESH;
-            var body = new RefreshRequest {RefreshToken = LoginResult.RefreshToken};
-            var response = await apiClient.Execute(method, url, body);
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await apiClient.ReadFromResponse<Response<LoginResult>>(response);
-                Connexion(result.Data);
-            }
-        }
 
         public static string GetAccessToken()
         {
@@ -30,7 +15,7 @@ namespace TD2.Models
                 return null;
             }
             if (!AccessTokenValid())
-                RefreshAccessToken();
+                ApiService.RefreshAccessToken();
             return LoginResult.AccessToken;
         }
 

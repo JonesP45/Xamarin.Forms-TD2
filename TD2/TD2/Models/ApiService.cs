@@ -28,6 +28,20 @@ namespace TD2.Models
             
         }
         
+        public static async void RefreshAccessToken()
+        {
+            var apiClient = new ApiClient();
+            var method = HttpMethod.Post;
+            const string url = Urls.URI + Urls.REFRESH;
+            var body = new RefreshRequest {RefreshToken = UserService.LoginResult.RefreshToken};
+            var response = await apiClient.Execute(method, url, body);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await apiClient.ReadFromResponse<Response<LoginResult>>(response);
+                UserService.Connexion(result.Data);
+            }
+        }
+        
         public static async void GetPlaces()
         {
             var apiClient = new ApiClient();
