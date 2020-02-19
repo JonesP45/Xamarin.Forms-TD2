@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TD2.Ressources;
 
 namespace TD2.Models
@@ -8,14 +9,18 @@ namespace TD2.Models
         public static LoginResult LoginResult { get; private set; }
         private static DateTime DateTimeSignIn { get; set; }
 
-        public static string GetAccessToken()
+        public static async Task<string> GetAccessToken()
         {
             if (!IsConnected())
             {
                 return null;
             }
+
             if (!AccessTokenValid())
-                ApiService.RefreshAccessToken();
+            {
+                await ApiService.RefreshAccessToken();
+            }
+
             return LoginResult.AccessToken;
         }
 

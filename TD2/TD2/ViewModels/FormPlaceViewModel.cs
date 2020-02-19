@@ -71,7 +71,7 @@ namespace TD2.ViewModels
         
         private async void AddPlace()
         {
-            if (Id != null)
+            if (Id != null && Convert.ToInt32(Id) != 0)
             {
                 ApiService.AddPlace(Title, Description, Convert.ToDouble(Latitude), Convert.ToDouble(Longitude), Convert.ToInt32(Id));
             }
