@@ -3,7 +3,7 @@ using TD2.Ressources;
 
 namespace TD2.Models
 {
-    public class CommentList
+    public static class CommentList
     {
         public static ObservableCollection<CommentItem> Comments { get; }
 

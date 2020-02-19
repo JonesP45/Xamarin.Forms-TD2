@@ -10,8 +10,7 @@
              Title="Detail place">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="CommentsProfile"
-                     Order="Primary"
+        <ToolbarItem Order="Primary"
                      Text="{Binding Comments}"
                      Priority="0"
                      Command="{Binding CommentsCommand}" />

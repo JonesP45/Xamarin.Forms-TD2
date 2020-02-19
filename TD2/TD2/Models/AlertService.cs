@@ -54,5 +54,13 @@ namespace TD2.Models
             if (back)
                 GoToService.GoToBackPage();
         }
+        
+        public static async void Info(string message, bool back)
+        {
+            var result = DependencyService.Resolve<IDialogService>();
+            await result.DisplayAlertAsync("Info", message, "Ok");
+            if (back)
+                GoToService.GoToBackPage();
+        }
     }
 }

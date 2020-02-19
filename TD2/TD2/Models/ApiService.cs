@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TD.Api.Dtos;
 using TD2.Ressources;
-using Xamarin.Essentials;
 
 namespace TD2.Models
 {
@@ -34,7 +33,6 @@ namespace TD2.Models
             var apiClient = new ApiClient();
             var method = HttpMethod.Get;
             const string url = Urls.URI + Urls.LIST_PLACES;
-            // var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
             var response = await GetResponse(method, url, null);
             if (response == null) return;
             if (response.IsSuccessStatusCode)
@@ -57,7 +55,6 @@ namespace TD2.Models
             var apiClient = new ApiClient();
             var method = HttpMethod.Get;
             var url = Urls.URI + Urls.GET_PLACE + placeId;
-            // var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
             var response = await GetResponse(method, url, null);
             if (response == null) return null;
             if (response.IsSuccessStatusCode)
@@ -83,11 +80,9 @@ namespace TD2.Models
 
         public static async void AddComment(int id, string textAddComment)
         {
-            var apiClient = new ApiClient();
             var method = HttpMethod.Post;
             var url = Urls.URI + Urls.GET_PLACE + id + Urls.CREATE_COMMENT;
             var body = new CreateCommentRequest {Text = textAddComment};
-            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
             var response = await GetResponse(method, url, body);
             if (response == null) return;
             if (response.IsSuccessStatusCode)
@@ -105,7 +100,6 @@ namespace TD2.Models
             var apiClient = new ApiClient();
             var method = HttpMethod.Get;
             const string url = Urls.URI + Urls.ME;
-            // var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
             var response = await GetResponse(method, url, null);
             if (response == null) return null;
             if (response.IsSuccessStatusCode)
@@ -194,11 +188,11 @@ namespace TD2.Models
 
             if (response.IsSuccessStatusCode)
             {
-                AlertService.Error("Image upload", false);
+                AlertService.Info("Image upload", false);
             }
             else if (response.StatusCode == HttpStatusCode.RequestEntityTooLarge)
             {
-                AlertService.Error("413", false);
+                AlertService.Error(response.StatusCode.ToString(), false);
             }
             else
             {
@@ -209,7 +203,6 @@ namespace TD2.Models
         
         public static async void AddPlace(string title, string description, double latitude, double longitude, int imageId)
         {
-            var apiClient = new ApiClient();
             var method = HttpMethod.Post;
             const string url = Urls.URI + Urls.CREATE_PLACE;
             var body = new CreatePlaceRequest
@@ -235,7 +228,6 @@ namespace TD2.Models
         
         public static async void EditPassword(string oldPassword, string newPassword)
         {
-            var apiClient = new ApiClient();
             var method = new HttpMethod("PATCH");
             const string url = Urls.URI + Urls.UPDATE_PASSWORD;
             var body = new UpdatePasswordRequest {OldPassword = oldPassword, NewPassword = newPassword};
@@ -254,7 +246,6 @@ namespace TD2.Models
         
         public static async void EditProfile(string firstname, string lastname, int id)
         {
-            var apiClient = new ApiClient();
             var method = new HttpMethod("PATCH");
             const string url = Urls.URI + Urls.UPDATE_PROFILE;
             var body = new UpdateProfileRequest {FirstName = firstname, LastName = lastname, ImageId = id};

@@ -35,13 +35,6 @@
                 <DataTemplate
                     x:DataType="local:Place">
                     <ViewCell>
-                        <!-- <ViewCell.ContextActions> -->
-                        <!--     <MenuItem -->
-                        <!--         Command="{Binding DeleteTodoCommand}" -->
-                        <!--         CommandParameter="{Binding .}" -->
-                        <!--         Text="Supprimer" -->
-                        <!--         IsDestructive="True" /> -->
-                        <!-- </ViewCell.ContextActions> -->
                         <Frame CornerRadius="4"
                             HasShadow="True"
                             Margin="4,4,4,4"

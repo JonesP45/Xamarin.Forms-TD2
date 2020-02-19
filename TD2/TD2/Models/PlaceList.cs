@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using TD2.Ressources;
 
 namespace TD2.Models
 {

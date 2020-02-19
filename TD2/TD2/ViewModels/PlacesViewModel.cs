@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Storm.Mvvm;
@@ -48,6 +47,7 @@ namespace TD2.ViewModels
         public override async Task OnResume()
         {
             await base.OnResume();
+            PlaceList.Places.Clear();
             ApiService.GetPlaces();
             Places = PlaceList.Places;
         }
