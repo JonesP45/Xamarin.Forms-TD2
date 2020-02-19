@@ -14,18 +14,29 @@ namespace TD2.Models
 {
     public static class ApiService
     {
-        // private static async Task<HttpResponseMessage> GetResponse(HttpMethod method, string url, string data)
-        // {
-        //     var apiClient = new ApiClient();
-        //     return await apiClient.Execute(method, url, null, UserService.GetAccessToken());
-        // }
+        private static async Task<HttpResponseMessage> GetResponse(HttpMethod method, string url, object data)
+        {
+            try
+            {
+                var apiClient = new ApiClient();
+                return await apiClient.Execute(method, url, data, UserService.GetAccessToken());
+            }
+            catch (Exception)
+            {
+                AlertService.Error("Problem", true);
+                return null;
+            }
+            
+        }
         
         public static async void GetPlaces()
         {
             var apiClient = new ApiClient();
             var method = HttpMethod.Get;
             const string url = Urls.URI + Urls.LIST_PLACES;
-            var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, null);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
                 var result = await apiClient.ReadFromResponse<Response<List<PlaceItemSummary>>>(response);
@@ -46,7 +57,9 @@ namespace TD2.Models
             var apiClient = new ApiClient();
             var method = HttpMethod.Get;
             var url = Urls.URI + Urls.GET_PLACE + placeId;
-            var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, null);
+            if (response == null) return null;
             if (response.IsSuccessStatusCode)
             {
                 CommentList.ClearAll();
@@ -67,40 +80,16 @@ namespace TD2.Models
             }
             return null;
         }
-        
-        /*public async void GetPlaceById(int placeId)
-        {
-            var apiClient = new ApiClient();
-            var method = HttpMethod.Get;
-            var url = Urls.URI + Urls.GET_PLACE + placeId;
-            var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
-            if (response.IsSuccessStatusCode)
-            {
-                CommentList.ClearAll();
-                var result = await apiClient.ReadFromResponse<Response<PlaceItem>>(response);
-                foreach (var commentItem in result.Data.Comments)
-                {
-                    CommentList.AddComment(commentItem);
-                }
-                Comments = CommentList.Comments;
-            }
-            else if (response.StatusCode == HttpStatusCode.BadRequest)
-            {
-                new AlertService().Error(response.StatusCode.ToString(), true);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                new AlertService().Error(response.StatusCode.ToString(), true);
-            }
-        }*/
-        
+
         public static async void AddComment(int id, string textAddComment)
         {
             var apiClient = new ApiClient();
             var method = HttpMethod.Post;
             var url = Urls.URI + Urls.GET_PLACE + id + Urls.CREATE_COMMENT;
             var body = new CreateCommentRequest {Text = textAddComment};
-            var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, body);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
                 new GoToService().GoToBackPage();
@@ -116,7 +105,9 @@ namespace TD2.Models
             var apiClient = new ApiClient();
             var method = HttpMethod.Get;
             const string url = Urls.URI + Urls.ME;
-            var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, null, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, null);
+            if (response == null) return null;
             if (response.IsSuccessStatusCode)
             {
                 var result = await apiClient.ReadFromResponse<Response<UserItem>>(response);
@@ -133,6 +124,8 @@ namespace TD2.Models
             const string url = Urls.URI + Urls.LOGIN;
             var body = new LoginRequest {Email = email, Password = password};
             var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            // var response = await GetResponse(method, url, body);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
                 var result = await apiClient.ReadFromResponse<Response<LoginResult>>(response);
@@ -160,7 +153,9 @@ namespace TD2.Models
             {
                 Email = email, FirstName = firstname, LastName = lastname, Password = password
             };
-            var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, body);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
                 var result = await apiClient.ReadFromResponse<Response<LoginResult>>(response);
@@ -192,6 +187,7 @@ namespace TD2.Models
             request.Content = requestContent;
 
             var response = await client.SendAsync(request);
+            if (response == null) return null;
 
             var result = await response.Content.ReadAsStringAsync();
             var id = JsonConvert.DeserializeObject<Response<ImageItem>>(result);
@@ -224,7 +220,9 @@ namespace TD2.Models
                 Longitude = longitude,
                 ImageId = imageId
             };
-            var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, body);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
                 new GoToService().GoToBackPage();
@@ -241,7 +239,9 @@ namespace TD2.Models
             var method = new HttpMethod("PATCH");
             const string url = Urls.URI + Urls.UPDATE_PASSWORD;
             var body = new UpdatePasswordRequest {OldPassword = oldPassword, NewPassword = newPassword};
-            var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, body);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
                 new GoToService().GoToBackPage();
@@ -258,12 +258,11 @@ namespace TD2.Models
             var method = new HttpMethod("PATCH");
             const string url = Urls.URI + Urls.UPDATE_PROFILE;
             var body = new UpdateProfileRequest {FirstName = firstname, LastName = lastname, ImageId = id};
-            var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            // var response = await apiClient.Execute(method, url, body, UserService.GetAccessToken());
+            var response = await GetResponse(method, url, body);
+            if (response == null) return;
             if (response.IsSuccessStatusCode)
             {
-                //var result = await apiClient.ReadFromResponse<Response<UserItem>>(response);
-                //var data = result.Data;
-                //var idd = data.Id;
                 new GoToService().GoToBackPage();
             }
             else
